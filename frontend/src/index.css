@@ -1,13 +1,102 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background-color: #D28CFF;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.authentication .title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+.authentication .title img {
+  width: 145px;
+  height: 115px;
+  display: inline-block;
+}
+
+.authentication .title span {
+  font-family: 'Pragati Narrow', sans-serif;
+  font-size: 150px;
+  padding: 30px;
+  color: #6041b0;
+}
+
+.authentication .content {
+  width: 380px;
+  height: 480px;
+  background: white;
+  border-radius: 40px;
+  margin: 0px auto 30px auto;
+  text-align: center;
+  font-family: 'Kumbh Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  box-shadow: 0 3px 15px black;
+}
+
+.authentication .content div {
+  padding: 20px;
+  line-height: 40px;
+  font-size: 20px;
+}
+
+.authentication .content .button {
+  text-decoration: none;
+  width: 170px;
+  height: 36px;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  background-color: #6041b0;
+  font-family: 'Kumbh Sans', sans-serif;
+  padding-top: 20px;
+}
+
+.authentication .content .button:hover {
+  background-color: #41097d;
+}
+
+.navbar {
+  height: 70px;
+  background-color: #AB15F0;
+  border-radius: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar .title {
+  font-family: 'Pragati Narrow', sans-serif;
+  color: white;
+  padding: 5px 60px;
+  font-size: 2.2em;
+}
+
+.navbar .content {
+  font-family: 'Kumbh Sans', sans-serif;
+  display: flex;
+  justify-content: space-evenly;
+  width: 350px;
+  padding: 25px 50px;
+  font-size: 1.3em;
+}
+
+.navbar .content .dashboard {
+  text-decoration: none;
+  color: white;
+}
+
+.navbar .content .dashboard:hover {
+  color: black;
+}
+
+.navbar .content .about {
+  text-decoration: none;
+  color: white;
+}
+
+.navbar .content .about:hover {
+  color: black;
 }
