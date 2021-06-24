@@ -2,8 +2,10 @@ const express = require('express');
 const app = express()
 const apiRoutes = require('./routes/api.js');
 const authRoutes = require('./routes/auth.js');
-var cors = require('cors');
+const cors = require('cors');
 const mongoose = require('mongoose');
+const cookieParser = require("cookie-parser");
+
 const port = 8000;
 
 //Connect to mongoDB
@@ -19,8 +21,12 @@ mongoose.connect(databaseURI, { 'useNewUrlParser': true, 'useUnifiedTopology': t
 }).catch(err => {
     console.error(err);
 });
-
-app.use(cors())
+//Need parameter to avoid CORS policy error when passing cookies
+app.use(cors({
+    credentials: true,
+    origin: "http://localhost:3000"
+}));
+app.use(cookieParser());
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
