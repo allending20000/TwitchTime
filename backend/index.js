@@ -2,6 +2,7 @@ const express = require('express');
 const app = express()
 const apiRoutes = require('./routes/api.js');
 const authRoutes = require('./routes/auth.js');
+const twitchRoutes = require('./routes/twitch.js');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const cookieParser = require("cookie-parser");
@@ -34,3 +35,4 @@ app.get('/', (req, res) => {
 
 app.use('/api', apiRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/twitch', twitchRoutes);

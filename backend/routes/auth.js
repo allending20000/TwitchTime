@@ -5,31 +5,6 @@ const AuthInfo = require("../models/authInfo");
 const axios = require('axios');
 var router = express.Router();
 
-//Refreshes access token using the refresh token, returns modified document
-const refreshAccessToken = async (userId) => {
-    //Find the AuthInfo entry from database
-    const [authDoc] = await AuthInfo.find({ userId: userId });
-    //Parameters for POST request to get new tokens
-    const params = {
-        grant_type: "refresh_token",
-        refresh_token: authDoc.refresh_token,
-        client_id: process.env.TWITCH_CLIENT_ID,
-        client_secret: process.env.TWITCH_SECRET
-    };
-    //response from POST requestç
-    const tokenResponse = await axios.post("https://id.twitch.tv/oauth2/token", {}, { params });
-    //create a new custom token
-    const new_custom_token = crypto.randomBytes(64).toString('hex');
-    //Update access token and refresh tokens of old document
-    authDoc.overwrite({
-        userId: authDoc.userId,
-        access_token: tokenResponse.data.access_token,
-        refresh_token: tokenResponse.data.refresh_token,
-        custom_token: new_custom_token
-    });
-    await authDoc.save();
-    return authDoc;
-}
 
 //Authentication
 router.get('/signin', (req, res) => {
@@ -75,7 +50,7 @@ router.get('/generate-token', async ({ query: { code } }, res) => {
             custom_token: custom_token
         });
         //Save auth document to mongodb
-        //await authDoc.save(); //UNCOMMENT TO SAVE TO DB
+        await authDoc.save();
         //Set the custom token as a cookie to be sent back to client
         res.cookie("custom_token", custom_token);
         res.send('');
