@@ -72,13 +72,54 @@ const getFollowedStreams = async (custom_token) => {
             console.error(error);
         }
     }
-}
+};
+
+//Fetches and returns URL of profile image for a user with given user_id
+const getUserProfileImage = async (custom_token, user_id) => {
+    try {
+        const authInfo = await getAuthInfoFromToken(custom_token);
+        //URL for get request to get followed streamers
+        const getUserProfileImageURL = "https://api.twitch.tv/helix/users";
+        const getUserProfileImageHeaders = {
+            'client-id': process.env.TWITCH_CLIENT_ID,
+            'Authorization': `Bearer ${authInfo.access_token}`
+        };
+        const getUserProfileImageParams = {
+            id: user_id
+        }
+        const userProfileImageResponse = await axios.get(getUserProfileImageURL, {
+            headers: getUserProfileImageHeaders,
+            params: getUserProfileImageParams
+        });
+        const [userData] = userProfileImageResponse.data.data;
+        const userProfileImage = userData.profile_image_url;
+        return userProfileImage
+    } catch (error) {
+        //If 401 error, use refresh token to refresh access token
+        if (error.response && error.response.hasOwnProperty("data") && error.response.data.hasOwnProperty("status") && error.response.data.status === 401) {
+            //Get custom_token from cookie
+            const customToken = req.cookies.custom_token;
+            const newCustomToken = await refreshAccessToken(customToken);
+            //Call function again with new token
+            return getUserProfileImage(newCustomToken);
+        } else {
+            console.error(error);
+        }
+    }
+};
 
 router.get('/getFollowedStreams', async (req, res) => {
     //Get custom_token from cookie using cookie-parser middleware
     const custom_token = req.cookies.custom_token;
     const followedStreamsArr = await getFollowedStreams(custom_token);
     res.send(followedStreamsArr);
+});
+
+router.get('/getUserProfileImage', async (req, res) => {
+    //Get custom_token from cookie using cookie-parser middleware
+    const custom_token = req.cookies.custom_token;
+    const userProfileImage = await getUserProfileImage(custom_token, req.query.userId);
+    res.send(userProfileImage);
 });
 
 module.exports = router;

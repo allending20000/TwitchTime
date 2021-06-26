@@ -34,5 +34,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api', apiRoutes);
+//authentication
 app.use('/api/auth', authRoutes);
+//twitch api calls
 app.use('/api/twitch', twitchRoutes);
