@@ -141,3 +141,54 @@ body {
   line-height: 40px;
   font-size: 20px;
 }
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard .entry {
+  margin: 1.7em 20%;
+  padding: 2em;
+  border-style: solid;
+  border-color: #41097d;
+  border-radius: 20px;
+  background-color: plum;
+}
+
+.entry .entrycontent {
+  display: flex;
+}
+
+.entry .entrycontent .entrytext {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  font-family: 'Kumbh Sans', sans-serif;
+  justify-content: space-between;
+}
+
+.entry .entrycontent .entrytext .toprow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.8em;
+}
+
+.entry .entrycontent .entrytext .toprow .viewercount{
+  color: red;
+  font-size: 26px;
+}
+
+.entry .entrycontent .entrytext .bottomrow {
+  padding-bottom: 30px;
+  font-size: 20px;
+}
+
+.entry img {
+  height: 150px;
+  width: 150px;
+  border-color: #41097d;
+  border-style: solid;
+  background: white;
+  margin-right: 20px;
+}

@@ -1,20 +1,60 @@
 const express = require('express');
 const axios = require('axios');
 const AuthInfo = require('../models/authInfo');
+const TimeInfo = require('../models/timeInfo');
 var router = express.Router();
 //require('cookie-parser');
 
 //Uses custom_token cookie value to fetch AuthInfo object from database
 const getAuthInfoFromToken = async (custom_token) => {
-    const [authDoc] = await AuthInfo.find({ custom_token: custom_token });
+    const [authDoc] = await AuthInfo.find({
+        custom_token: custom_token
+    });
     return authDoc;
+}
+
+//Uses userId and broadcasterId to fetch timeInfo document from database
+const getTimeDocFromUserAndBroadcaster = async (userId, broadcasterId) => {
+    const [timeDoc] = await TimeInfo.find({
+        userId: userId,
+        broadcasterId: broadcasterId
+    });
+    return timeDoc;
+}
+
+//Gets the userid given the custom token
+const getUserIdFromCustomToken = async (custom_token) => {
+    //Find the AuthInfo entry from database
+    const authDoc = await getAuthInfoFromToken(custom_token);
+    return authDoc.userId;
+}
+
+//Save streams to database as timeInfo documents, IF they don't already exist
+const saveStreamsToDatabase = async (streamsArr, userId) => {
+    for (let i = 0; i < streamsArr.length; i++) {
+        const stream = streamsArr[i];
+        const broadcasterId = stream.user_id;
+        const docDoesExist = await TimeInfo.exists({
+            userId: userId,
+            broadcasterId: broadcasterId
+        });
+        if (!docDoesExist) {
+            console.log("Hi");
+            const timeDoc = new TimeInfo({
+                userId: userId,
+                broadcasterId: broadcasterId,
+                timeWatched: "0"
+            });
+            await timeDoc.save();
+        }
+    }
 }
 
 //Refreshes access token using the refresh token, returns new token
 const refreshAccessToken = async (custom_token) => {
     try {
         //Find the AuthInfo entry from database
-        const [authDoc] = await AuthInfo.find({ custom_token: custom_token });
+        const authDoc = await getAuthInfoFromToken(custom_token);
         //Parameters for POST request to get new tokens
         const params = {
             grant_type: "refresh_token",
@@ -40,7 +80,7 @@ const refreshAccessToken = async (custom_token) => {
     }
 }
 
-//Fetches and returns list of followed streams
+//Fetches and returns list of followed streams as well as the user's id in the form [followed streams array, userid]
 const getFollowedStreams = async (custom_token) => {
     //Get auth info document from cookie
     try {
@@ -59,7 +99,7 @@ const getFollowedStreams = async (custom_token) => {
             params: getFollowedStreamsParams
         });
         const followedStreamsArr = followedStreamsResponse.data.data;
-        return followedStreamsArr
+        return [followedStreamsArr, authInfo.userId]
     } catch (error) {
         //If 401 error, use refresh token to refresh access token
         if (error.response && error.response.hasOwnProperty("data") && error.response.data.hasOwnProperty("status") && error.response.data.status === 401) {
@@ -109,17 +149,40 @@ const getUserProfileImage = async (custom_token, user_id) => {
 };
 
 router.get('/getFollowedStreams', async (req, res) => {
-    //Get custom_token from cookie using cookie-parser middleware
-    const custom_token = req.cookies.custom_token;
-    const followedStreamsArr = await getFollowedStreams(custom_token);
-    res.send(followedStreamsArr);
+    try {
+        //Get custom_token from cookie using cookie-parser middleware
+        const custom_token = req.cookies.custom_token;
+        const [followedStreamsArr, userId] = await getFollowedStreams(custom_token);
+        await saveStreamsToDatabase(followedStreamsArr, userId);
+        res.send(followedStreamsArr);
+    } catch (error) {
+        console.error(error);
+    }
 });
 
 router.get('/getUserProfileImage', async (req, res) => {
-    //Get custom_token from cookie using cookie-parser middleware
-    const custom_token = req.cookies.custom_token;
-    const userProfileImage = await getUserProfileImage(custom_token, req.query.userId);
-    res.send(userProfileImage);
+    try {
+        //Get custom_token from cookie using cookie-parser middleware
+        const custom_token = req.cookies.custom_token;
+        const userProfileImage = await getUserProfileImage(custom_token, req.query.broadcasterId);
+        res.send(userProfileImage);
+    } catch (error) {
+        console.error(error);
+    }
+});
+
+router.get('/getTimeWatched', async (req, res) => {
+    try {
+        //Get custom_token from cookie using cookie-parser middleware
+        const custom_token = req.cookies.custom_token;
+        //Get userId from the custom token
+        const userId = await getUserIdFromCustomToken(custom_token);
+        //Get the time watched from the timeInfo document
+        const timeDoc = await getTimeDocFromUserAndBroadcaster(userId, req.query.broadcasterId);
+        res.send(timeDoc.timeWatched);
+    } catch (error) {
+        console.error(error);
+    }
 });
 
 module.exports = router;

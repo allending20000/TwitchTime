@@ -5,23 +5,25 @@ import Entry from "./Entry.js";
 axios.defaults.withCredentials = true;
 
 const Dashboard = () => {
-    const [data, setData] = useState(null);
+    //Array of followed streams
+    const [followedStreams, setFollowedStreams] = useState(null);
     //Runs the first time component mounts
     useEffect(() => {
         axios.get("http://localhost:8000/api/twitch/getFollowedStreams").then(res => {
             //update the data state
             console.log(res);
-            setData(res.data);
+            const followedStreamsArr = res.data;
+            setFollowedStreams(followedStreamsArr);
         }).catch(error => {
             console.error(error);
         });
     }, []);
 
     return (<div className="dashboard">
-        {data &&
-            data.map(user => {
+        {followedStreams &&
+            followedStreams.map(user => {
                 return <div className="dashboard-entry" key={user.id}>
-                    <Entry userName={user.user_name} viewerCount={user.viewer_count} userId={user.user_id} />
+                    <Entry userName={user.user_name} viewerCount={user.viewer_count} broadcasterId={user.user_id} />
                 </div>
             })
         }

@@ -14,8 +14,10 @@ router.get('/signin', (req, res) => {
 });
 
 //Get authorization code from query parameter, get and store OAuth access token in database, then generate a NEW access token for the client and save to database
-router.get('/generate-token', async ({ query: { code } }, res) => {
+router.get('/generate-token', async (req, res) => {
     try {
+        //Authorization code
+        const code = req.query.code;
         //parameters for POST request to get access token
         const params = {
             client_id: process.env.TWITCH_CLIENT_ID,
@@ -42,17 +44,38 @@ router.get('/generate-token', async ({ query: { code } }, res) => {
         const userId = userResponse.data.data[0].id;
         //Generate random 200 character long random string to use as custom access token
         const custom_token = crypto.randomBytes(64).toString('hex'); //URL-friendly
-        //Save to MongoDB database
-        const authDoc = new AuthInfo({
-            userId: userId,
-            access_token: access_token,
-            refresh_token: refresh_token,
-            custom_token: custom_token
+        //If old entry exists for given user, overwrite it
+        const docDoesExist = await AuthInfo.exists({
+            userId: userId
         });
-        //Save auth document to mongodb
-        await authDoc.save();
-        //Set the custom token as a cookie to be sent back to client
-        res.cookie("custom_token", custom_token);
+        if (docDoesExist) {
+            //Load document using userId
+            const [authDoc] = await AuthInfo.find({
+                userId: userId
+            });
+            //Overwrite old document
+            authDoc.overwrite({
+                userId: authDoc.userId,
+                access_token: tokenResponse.data.access_token,
+                refresh_token: tokenResponse.data.refresh_token,
+                custom_token: custom_token
+            });
+            await authDoc.save();
+            //Overwite old cookie
+            res.cookie("custom_token", custom_token, { overwrite: true });
+        } else {
+            //Save new document to database
+            const authDoc = new AuthInfo({
+                userId: userId,
+                access_token: access_token,
+                refresh_token: refresh_token,
+                custom_token: custom_token
+            });
+            //Save auth document to mongodb
+            await authDoc.save();
+            //Set the custom token as a cookie to be sent back to client
+            res.cookie("custom_token", custom_token);
+        }
         res.send('');
     } catch (error) {
         console.error(error);
