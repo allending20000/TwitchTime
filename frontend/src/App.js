@@ -2,6 +2,7 @@ import Authentication from "./Authentication";
 import Dashboard from "./Dashboard";
 import Navbar from "./Navbar";
 import Callback from "./Callback";
+import User from "./User";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 
@@ -18,6 +19,10 @@ function App() {
         </Route>
         <Route exact path="/callback">
           <Callback />
+        </Route>
+        <Route exact path="/user/:username/:timeToWatch">
+          <Navbar />
+          <User />
         </Route>
       </Switch>
     </Router>

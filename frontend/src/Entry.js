@@ -1,3 +1,4 @@
+import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "../../backend/node_modules/axios";
 import { FaMale } from 'react-icons/fa';
@@ -9,6 +10,10 @@ const Entry = (props) => {
     const [profileImgUrl, setProfileImgUrl] = useState(null);
     //Time watched for current broadcaster
     const [timeWatched, setTimeWatched] = useState(null);
+    //Time TO watch for broadcaster (form input)
+    const [timeToWatch, setTimeToWatch] = useState(null);
+    //Use to redirect to other pages
+    const history = useHistory();
     useEffect(() => {
         try {
             //Fetches profile URL and time watched for the current broadcaster
@@ -31,21 +36,41 @@ const Entry = (props) => {
         }
     }, []);
 
-    return (<div className="entry">
-        {profileImgUrl && timeWatched && <div className="entrycontent">
-            <div className="entryimg">
-                <img src={profileImgUrl} alt="Channel Profile" className="profileimage" />
-            </div>
-            <div className="entrytext">
-                <div className="toprow">
-                    <div className="username">{props.userName}</div>
-                    <div className="viewercount"><FaMale />{props.viewerCount}</div>
+    //handle submit event for the form
+    const handleSubmit = (e) => {
+        //Prevent page from refreshing
+        e.preventDefault();
+        //Go to 
+        history.push(`/user/${props.userName}/${timeToWatch}`);
+    }
+
+    //handle changing timeToWatch state
+    const handleTimeToWatchChange = (e) => {
+        setTimeToWatch(e.target.value);
+    }
+
+    return (<div>
+        {profileImgUrl && timeWatched &&
+            <div className="entry">
+                <div className="entrycontent">
+                    <div className="entryimg">
+                        <img src={profileImgUrl} alt="Channel Profile" className="profileimage" />
+                    </div>
+                    <div className="entrytext">
+                        <div className="toprow">
+                            <div className="username">{props.userName}</div>
+                            <div className="viewercount"><FaMale />{props.viewerCount}</div>
+                        </div>
+                        <div className="bottomrow">
+                            <div>Watched: {timeWatched}</div>
+                            <form className="timeform" onSubmit={handleSubmit}>
+                                <input type="number" value={timeToWatch || ""} placeholder="Minutes to Watch" onChange={handleTimeToWatchChange} min="1" required />
+                                <button>Watch</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div className="bottomrow">
-                    <div>Watched: {timeWatched}</div>
-                </div>
             </div>
-        </div>
         }
     </div>);
 }

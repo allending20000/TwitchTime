@@ -192,3 +192,8 @@ body {
   background: white;
   margin-right: 20px;
 }
+
+.user #twitch-embed {
+  text-align: center;
+  margin-top: 20px;
+}
