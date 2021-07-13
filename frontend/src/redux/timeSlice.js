@@ -1,26 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-//Converts current time in seconds to a time object
-const getTimeObjFromSec = (sec) => {
-    const hours = Math.floor(sec / 3600);
-    const minsLeftoverInSec = sec % 3600;
-    const mins = Math.floor(minsLeftoverInSec / 60);
-    const secs = Math.ceil(minsLeftoverInSec % 60);
-    return {
-        h: hours,
-        m: mins,
-        s: secs
-    };
-}
-//Converts current time object to time in seconds
-const getSecFromTimeObj = (timeObject) => {
-    return timeObject.h * 3600 + timeObject.m * 60 + timeObject.s;
-}
-
 export const timeSlice = createSlice({
     name: 'time',
     initialState: {
-        value: null,
+        value: 0,
     },
     reducers: {
         increment: (state) => {
@@ -33,12 +16,12 @@ export const timeSlice = createSlice({
         decrement: (state) => {
             state.value -= 1
         },
+        reset: (state) => {
+            state.value = 0
+        },
         setTime: (state, action) => {
             state.value = action.payload
         },
-        startTimer: (state, action) => {
-
-        }
     },
 })
 

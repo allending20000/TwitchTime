@@ -12,6 +12,8 @@ const Timer = (props) => {
     const [intervalResponse, setIntervalResponse] = useState(null);
     //state to indicate when time state is first set (to start timer)
     const [isTimeSet, setIsTimeSet] = useState(false);
+    //whether or not timer has finished
+    const [timeFinished, setTimeFinished] = useState(false);
     //Converts current time in seconds to a time object
     const getTimeObjFromSec = (sec) => {
         const hours = Math.floor(sec / 3600);
@@ -30,10 +32,6 @@ const Timer = (props) => {
     }
     //Starts the timer
     const decrementTimer = () => {
-        if (timeRemaining === 0) {
-            clearInterval(intervalResponse);
-            return;
-        }
         //NOTE: need to use functions in setState or else value will always remain what it was during first call
         setTimeRemaining(timeRemaining => timeRemaining - 1);
         setTimeObj(timeObj => {
@@ -54,9 +52,27 @@ const Timer = (props) => {
     //Called when isTimeSet state changes
     useEffect(() => {
         if (isTimeSet) {
-            const interval = setInterval(decrementTimer, 1000);
+            setIntervalResponse(setInterval(decrementTimer, 1000));
         }
     }, [isTimeSet]);
+    //Called when intervalResponse state changes
+    useEffect(() => {
+        return () => {
+            clearInterval(intervalResponse); //clears the interval
+        }
+    }, [intervalResponse]);
+    //Called when timeRemaining changes, use to access timeRemaining state as it changes
+    useEffect(() => {
+        if (timeRemaining == 0) {
+            setTimeFinished(true);
+        }
+    }, [timeRemaining]);
+    //Called when timer has finished (ticked down to 0)
+    useEffect(() => {
+        if (timeFinished) {
+            clearInterval(intervalResponse);
+        }
+    }, [timeFinished]);
 
     return (<div className="timer">
         <div>
