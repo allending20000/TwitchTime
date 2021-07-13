@@ -5,7 +5,7 @@ import { useEffect } from "react";
 const Timer = (props) => {
     //props.time
     //time remaining on the timer in seconds
-    let [timeRemaining, setTimeRemaining] = useState(null);
+    const [timeRemaining, setTimeRemaining] = useState(null);
     //timeObj has properties h, m, and s, representing hours, minutes, seconds, respectively
     const [timeObj, setTimeObj] = useState(null);
     //value returned by setInterval, needed to clear interval
@@ -24,15 +24,22 @@ const Timer = (props) => {
             s: secs
         };
     }
+    //Converts current time object to time in seconds
+    const getSecFromTimeObj = (timeObject) => {
+        return timeObject.h * 3600 + timeObject.m * 60 + timeObject.s;
+    }
     //Starts the timer
     const decrementTimer = () => {
-        console.log(timeRemaining);
         if (timeRemaining === 0) {
             clearInterval(intervalResponse);
             return;
         }
-        timeRemaining = timeRemaining - 1; //NOTE: setState doesn't cause timer to update
-        setTimeObj(getTimeObjFromSec(timeRemaining));
+        //NOTE: need to use functions in setState or else value will always remain what it was during first call
+        setTimeRemaining(timeRemaining => timeRemaining - 1);
+        setTimeObj(timeObj => {
+            const currSec = getSecFromTimeObj(timeObj);
+            return getTimeObjFromSec(currSec - 1);
+        });
     };
     //Called when component first mounts
     useEffect(() => {
@@ -47,14 +54,16 @@ const Timer = (props) => {
     //Called when isTimeSet state changes
     useEffect(() => {
         if (isTimeSet) {
-            setInterval(decrementTimer, 1000);
+            const interval = setInterval(decrementTimer, 1000);
         }
     }, [isTimeSet]);
 
     return (<div className="timer">
-        {timeObj && <div>
-            {timeObj.h} {timeObj.m} {timeObj.s}
-        </div>}
+        <div>
+            {timeObj && <div>
+                {timeObj.h} {timeObj.m} {timeObj.s}
+            </div>}
+        </div>
     </div>);
 }
 
