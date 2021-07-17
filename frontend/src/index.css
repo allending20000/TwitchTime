@@ -83,22 +83,37 @@ body {
   font-size: 1.3em;
 }
 
-.navbar .content .dashboard {
+.navbar .content .div {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.navbar .content .dashboardEnabled {
   text-decoration: none;
   color: white;
 }
 
-.navbar .content .dashboard:hover {
+.navbar .content .dashboardEnabled:hover {
   color: black;
 }
 
-.navbar .content .about {
+.navbar .content .aboutEnabled {
   text-decoration: none;
   color: white;
 }
 
-.navbar .content .about:hover {
+.navbar .content .aboutEnabled:hover {
   color: black;
+}
+
+.navbar .content .dashboardDisabled {
+  text-decoration: none;
+  color: gray;
+}
+
+.navbar .content .aboutDisabled {
+  text-decoration: none;
+  color: gray;
 }
 
 .callback .title {

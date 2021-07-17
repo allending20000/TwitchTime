@@ -1,10 +1,14 @@
 import { useHistory, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import Timer from "./Timer";
+import { useSelector } from 'react-redux';
+import React from "react";
 
 const User = () => {
     //Get the route parameters
     let { username, timeToWatch } = useParams();
+    //Whether or not the time is up (when watching a channel)
+    const isTimeUp = useSelector((state) => state.isTimeUp.value);
 
     //configurations for embedding Twitch
     const twitchConfigs = {
@@ -28,10 +32,15 @@ const User = () => {
         document.body.appendChild(script);
     }, [])
 
-    return (<div className="user">
-        <div id="twitch-embed"></div>
-        <Timer time={timeToWatch} />
-    </div>);
+    return (<React.Fragment>
+        {!isTimeUp ? <div className="user">
+            <div id="twitch-embed"></div>
+            <Timer time={timeToWatch} />
+        </div> :
+            <div className="userTimeUp">
+                Time is up! Click the Home button to return to the dashboard.
+            </div>}
+    </React.Fragment>);
 }
 
 export default User;

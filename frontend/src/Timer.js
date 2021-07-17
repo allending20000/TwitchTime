@@ -1,6 +1,7 @@
 import { useState } from "react";
-
+import { useDispatch } from 'react-redux';
 import { useEffect } from "react";
+import { timeIsUp } from "./redux/isTimeUpSlice";
 
 const Timer = (props) => {
     //props.time
@@ -14,6 +15,8 @@ const Timer = (props) => {
     const [isTimeSet, setIsTimeSet] = useState(false);
     //whether or not timer has finished
     const [timeFinished, setTimeFinished] = useState(false);
+    //Dispatch hook to call action on reducer
+    const dispatch = useDispatch();
     //Converts current time in seconds to a time object
     const getTimeObjFromSec = (sec) => {
         const hours = Math.floor(sec / 3600);
@@ -45,9 +48,8 @@ const Timer = (props) => {
         const timeInSec = props.time * 60;
         setTimeRemaining(timeInSec);
         setTimeObj(getTimeObjFromSec(timeInSec));
-        //Starts the timer and sets interval response
-        //setIntervalResponse(setInterval(decrementTimer, 1000));
         setIsTimeSet(true);
+
     }, []);
     //Called when isTimeSet state changes
     useEffect(() => {
@@ -55,10 +57,13 @@ const Timer = (props) => {
             setIntervalResponse(setInterval(decrementTimer, 1000));
         }
     }, [isTimeSet]);
-    //Called when intervalResponse state changes
+    //Called when intervalResponse state changes (including mounting)
     useEffect(() => {
+        console.log(1, intervalResponse);
+        //Called when state updates, cleanup last state (including unmounting)
         return () => {
             clearInterval(intervalResponse); //clears the interval
+            console.log(2, intervalResponse);
         }
     }, [intervalResponse]);
     //Called when timeRemaining changes, use to access timeRemaining state as it changes
@@ -71,6 +76,8 @@ const Timer = (props) => {
     useEffect(() => {
         if (timeFinished) {
             clearInterval(intervalResponse);
+            //Set the state isTimeUp to true
+            dispatch(timeIsUp());
         }
     }, [timeFinished]);
 

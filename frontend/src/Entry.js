@@ -2,6 +2,8 @@ import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "../../backend/node_modules/axios";
 import { FaMale } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import { startTime } from './redux/isTimeUpSlice';
 //enable to get and send cookies
 axios.defaults.withCredentials = true;
 
@@ -14,6 +16,9 @@ const Entry = (props) => {
     const [timeToWatch, setTimeToWatch] = useState(null);
     //Use to redirect to other pages
     const history = useHistory();
+    //Dispatch hook to call action on reducer
+    const dispatch = useDispatch();
+    const isTimeUp = useSelector((state) => state.isTimeUp.value);
     useEffect(() => {
         try {
             //Fetches profile URL and time watched for the current broadcaster
@@ -42,6 +47,9 @@ const Entry = (props) => {
         e.preventDefault();
         //Go to 
         history.push(`/user/${props.userName}/${timeToWatch}`);
+        //Set isTimeUp state to false so navbar links are disabled
+        dispatch(startTime());
+        console.log(isTimeUp);
     }
 
     //handle changing timeToWatch state
