@@ -70,7 +70,8 @@ const Entry = (props) => {
                             <div className="viewercount"><FaMale />{props.viewerCount}</div>
                         </div>
                         <div className="bottomrow">
-                            <div>Watched: {timeWatched}</div>
+                            <div className="gameName">{props.gameName}</div>
+                            <div className="timeWatched">Watched: {timeWatched} min</div>
                             <form className="timeform" onSubmit={handleSubmit}>
                                 <input type="number" value={timeToWatch || ""} placeholder="Minutes to Watch" onChange={handleTimeToWatchChange} min="1" required />
                                 <button>Watch</button>

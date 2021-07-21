@@ -82,9 +82,9 @@ const Timer = (props) => {
     }, [timeFinished]);
 
     return (<div className="timer">
-        <div>
+        <div className="timerNumbers">
             {timeObj && <div>
-                {timeObj.h} {timeObj.m} {timeObj.s}
+                {timeObj.h < 10 ? '0' + timeObj.h : timeObj.h}<span className="separator">:</span>{timeObj.m < 10 ? '0' + timeObj.m : timeObj.m}<span className="separator">:</span>{timeObj.s < 10 ? '0' + timeObj.s : timeObj.s}
             </div>}
         </div>
     </div>);

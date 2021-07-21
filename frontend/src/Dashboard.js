@@ -30,7 +30,7 @@ const Dashboard = () => {
         {followedStreams &&
             followedStreams.map(user => {
                 return <div className="dashboard-entry" key={user.id}>
-                    <Entry userName={user.user_name} viewerCount={user.viewer_count} broadcasterId={user.user_id} />
+                    <Entry userName={user.user_name} viewerCount={user.viewer_count} broadcasterId={user.user_id} gameName={user.game_name} />
                 </div>
             })
         }

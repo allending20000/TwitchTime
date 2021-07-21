@@ -1,5 +1,10 @@
+html {
+  height: 100%;
+}
+
 body {
   background-color: #D28CFF;
+  height: 100%;
 }
 
 .authentication .title {
@@ -78,7 +83,7 @@ body {
   font-family: 'Kumbh Sans', sans-serif;
   display: flex;
   justify-content: space-evenly;
-  width: 350px;
+  width: 500px;
   padding: 25px 50px;
   font-size: 1.3em;
 }
@@ -88,30 +93,16 @@ body {
   justify-content: space-evenly;
 }
 
-.navbar .content .dashboardEnabled {
+.navbar .content .dashboardEnabled, .aboutEnabled, .addChannelEnabled {
   text-decoration: none;
   color: white;
 }
 
-.navbar .content .dashboardEnabled:hover {
+.navbar .content .dashboardEnabled:hover, .aboutEnabled:hover, .addChannelEnabled:hover {
   color: black;
 }
 
-.navbar .content .aboutEnabled {
-  text-decoration: none;
-  color: white;
-}
-
-.navbar .content .aboutEnabled:hover {
-  color: black;
-}
-
-.navbar .content .dashboardDisabled {
-  text-decoration: none;
-  color: gray;
-}
-
-.navbar .content .aboutDisabled {
+.navbar .content .dashboardDisabled, .aboutDisabled, .addChannelDisabled {
   text-decoration: none;
   color: gray;
 }
@@ -199,6 +190,40 @@ body {
   font-size: 20px;
 }
 
+.entry .entrycontent .entrytext .bottomrow .gameName{
+  font-size: 15px;
+  margin-bottom: 50px;
+  color: #404247;
+}
+
+.entry .entrycontent .entrytext .bottomrow .timeWatched{
+  margin-bottom: 10px;
+}
+
+.entry .entrycontent .entrytext .bottomrow .timeform input[type=number] {
+  padding: 7px;
+  border-radius: 10px;
+  font-family: 'Kumbh Sans', sans-serif;
+  width: 21%;
+  border: 0;
+  margin-right: 5px;
+}
+
+.entry .entrycontent .entrytext .bottomrow .timeform button {
+  height: 27px;
+  width: 60px;
+  background-color: #6041b0;
+  border: none;
+  color: white;
+  font-family: 'Kumbh Sans', sans-serif;
+  border-radius: 5px;
+}
+
+.entry .entrycontent .entrytext .bottomrow .timeform button:hover {
+  background-color: #41097d;
+  cursor:pointer;
+}
+
 .entry img {
   height: 150px;
   width: 150px;
@@ -211,4 +236,30 @@ body {
 .user #twitch-embed {
   text-align: center;
   margin-top: 20px;
+}
+
+.userTimeUp {
+  color: white;
+  font-size: 30px;
+  text-align: center;
+  font-family: 'Kumbh Sans', sans-serif;
+  font-weight: bold;
+  margin-top: 40px;
+}
+
+.timer {
+  display: flex;
+  justify-content: center;
+}
+
+.timer .timerNumbers {
+  color: white;
+  font-size: 40px;
+  font-family:sans-serif;
+  font-weight: bold;
+  margin: 15px;
+}
+
+.timer .timerNumbers .separator {
+  margin-right: 2px;
 }

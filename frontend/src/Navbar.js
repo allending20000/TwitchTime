@@ -12,10 +12,12 @@ const Navbar = () => {
             {isTimeUp ? <React.Fragment>
                 <Link to="/dashboard" className="dashboardEnabled">Home</Link>
                 <Link to="/about" className="aboutEnabled">About</Link>
+                <Link to="/addChannel" className="addChannelEnabled">Add Channel</Link>
             </React.Fragment>
                 : <React.Fragment>
                     <a href="#!" onClick={() => false} className="dashboardDisabled">Home</a>
                     <a href="#!" onClick={() => false} className="aboutDisabled">About</a>
+                    <a href="#!" onClick={() => false} className="addChannelDisabled">Add Channel</a>
                 </React.Fragment>}
         </div>
     </div>);
