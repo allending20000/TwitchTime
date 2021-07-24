@@ -118,7 +118,7 @@ const getFollowedStreams = async (custom_token) => {
 const getUserProfileImage = async (custom_token, user_id) => {
     try {
         const authInfo = await getAuthInfoFromToken(custom_token);
-        //URL for get request to get followed streamers
+        //URL for get request to get info about a user
         const getUserProfileImageURL = "https://api.twitch.tv/helix/users";
         const getUserProfileImageHeaders = {
             'client-id': process.env.TWITCH_CLIENT_ID,
@@ -147,6 +147,62 @@ const getUserProfileImage = async (custom_token, user_id) => {
         }
     }
 };
+
+//Updates the time watched for a particular stream given user id of user and user id of broadcaster and time watched
+const updateTimeWatchedForBroadcaster = async (userId, broadcasterId, timeWatched) => {
+    try {
+        const timeInfo = await getTimeDocFromUserAndBroadcaster(userId, broadcasterId);
+        //Add to time watched field (NOTE: timeWatched is a string)
+        const newTimeWatchedInt = parseInt(timeInfo.timeWatched) + parseInt(timeWatched);
+        timeInfo.timeWatched = newTimeWatchedInt.toString();
+        //Save to database
+        await timeInfo.save();
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+//Follows a channel
+const createUserFollow = async (customToken, broadcasterLogin) => {
+    try {
+        //Get authentication info from customToken for API calls
+        const authInfo = await getAuthInfoFromToken(customToken);
+        //URL to get info about broadcaster user
+        const getBroadcasterInfoURL = "https://api.twitch.tv/helix/users";
+        const getBroadcasterInfoHeaders = {
+            'client-id': process.env.TWITCH_CLIENT_ID,
+            'Authorization': `Bearer ${authInfo.access_token}`
+        };
+        const getBroadcasterInfoParams = {
+            login: broadcasterLogin
+        };
+        const getBroadcasterInfoResponse = await axios.get(getBroadcasterInfoURL, {
+            headers: getBroadcasterInfoHeaders,
+            params: getBroadcasterInfoParams
+        });
+        //Get the response info about the broadcaaster
+        const broadcasterInfo = getBroadcasterInfoResponse.data.data[0];
+        //Follow the broadcaster now that their id is known
+        //URL to follow the broadcaster
+        const followBroadcasterURL = "https://api.twitch.tv/helix/users/follows";
+        const followBroadcasterHeaders = {
+            'client-id': process.env.TWITCH_CLIENT_ID,
+            'Authorization': `Bearer ${authInfo.access_token}`,
+            'Content-Type': 'application/json'
+        };
+        const followBroadcasterParams = {
+            from_id: authInfo.userId, //user id of caller
+            to_id: broadcasterInfo.id //user id of broadcaster
+        };
+        const followBroadcasterResponse = await axios.post(followBroadcasterURL, {}, {
+            headers: followBroadcasterHeaders,
+            params: followBroadcasterParams
+        });
+        console.log(followBroadcasterResponse);
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 router.get('/getFollowedStreams', async (req, res) => {
     try {
@@ -182,6 +238,39 @@ router.get('/getTimeWatched', async (req, res) => {
         res.send(timeDoc.timeWatched);
     } catch (error) {
         console.error(error);
+    }
+});
+
+router.post('/updateTimeWatchedForBroadcaster', async (req, res) => {
+    try {
+        //Get custom_token from cookie using cookie-parser middleware
+        const custom_token = req.cookies.custom_token;
+        //Get userId from the custom token
+        const userId = await getUserIdFromCustomToken(custom_token);
+        //Get the broadcaster and timeWatched fields from request data
+        const broadcasterId = req.body.broadcasterId;
+        const timeWatched = req.body.timeWatched; //express seems to convert this to a string
+        //Update the time watched for the broadcaster
+        await updateTimeWatchedForBroadcaster(userId, broadcasterId, timeWatched);
+        res.send("Saved time watched");
+    } catch (error) {
+        console.error(error);
+    }
+});
+
+router.post('/createUserFollow', async (req, res) => {
+    try {
+        //Get custom_token from cookie using cookie-parser middleware
+        const custom_token = req.cookies.custom_token;
+        //Get channel name field from request data
+        const channelName = req.body.channelName;
+        //Login name should be channel name but in lowercase
+        const broadcasterLogin = channelName.toLowerCase();
+        //Creates a follow for the broadcaster
+        await createUserFollow(custom_token, broadcasterLogin);
+        res.send("Created user follow");
+    } catch (error) {
+        console.log(error);
     }
 });
 

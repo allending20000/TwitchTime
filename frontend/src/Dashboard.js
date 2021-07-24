@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "../../backend/node_modules/axios";
 import Entry from "./Entry.js";
+import AddChannel from "./AddChannel";
 import { useDispatch } from 'react-redux';
 import { timeIsUp } from "./redux/isTimeUpSlice";
 //enable to get and send cookies
@@ -34,6 +35,7 @@ const Dashboard = () => {
                 </div>
             })
         }
+        <AddChannel />
     </div>);
 }
 

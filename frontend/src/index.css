@@ -180,7 +180,7 @@ body {
   font-size: 1.8em;
 }
 
-.entry .entrycontent .entrytext .toprow .viewercount{
+.entry .entrycontent .entrytext .toprow .viewercount {
   color: red;
   font-size: 26px;
 }
@@ -190,13 +190,13 @@ body {
   font-size: 20px;
 }
 
-.entry .entrycontent .entrytext .bottomrow .gameName{
+.entry .entrycontent .entrytext .bottomrow .gameName {
   font-size: 15px;
   margin-bottom: 50px;
   color: #404247;
 }
 
-.entry .entrycontent .entrytext .bottomrow .timeWatched{
+.entry .entrycontent .entrytext .bottomrow .timeWatched {
   margin-bottom: 10px;
 }
 
@@ -221,7 +221,7 @@ body {
 
 .entry .entrycontent .entrytext .bottomrow .timeform button:hover {
   background-color: #41097d;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .entry img {
@@ -255,11 +255,44 @@ body {
 .timer .timerNumbers {
   color: white;
   font-size: 40px;
-  font-family:sans-serif;
+  font-family: sans-serif;
   font-weight: bold;
   margin: 15px;
 }
 
 .timer .timerNumbers .separator {
   margin-right: 2px;
+}
+
+.addChannel .channelForm {
+  text-align: center;
+}
+
+.addChannel .channelForm input[type=string] {
+  height: 32px;
+  width: 250px;
+  border-radius: 10px;
+  border: 0;
+  font-size: 20px;
+  display: block;
+  text-align: center;
+  margin: 17px auto 0px auto;
+  font-family: 'Kumbh Sans', sans-serif;
+}
+
+.addChannel .channelForm button {
+  height: 45px;
+  width: 110px;
+  background-color: #6041b0;
+  border: none;
+  color: white;
+  font-family: 'Kumbh Sans', sans-serif;
+  border-radius: 5px;
+  margin: 20px 0px;
+  font-size: 15px;
+}
+
+.addChannel .channelForm button:hover {
+  background-color: #41097d;
+  cursor: pointer;
 }

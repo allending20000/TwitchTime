@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { useEffect } from "react";
 import { timeIsUp } from "./redux/isTimeUpSlice";
+import axios from "../../backend/node_modules/axios";
+//enable to get and send cookies
+axios.defaults.withCredentials = true;
 
 const Timer = (props) => {
     //props.time
@@ -59,11 +62,20 @@ const Timer = (props) => {
     }, [isTimeSet]);
     //Called when intervalResponse state changes (including mounting)
     useEffect(() => {
-        console.log(1, intervalResponse);
         //Called when state updates, cleanup last state (including unmounting)
         return () => {
-            clearInterval(intervalResponse); //clears the interval
-            console.log(2, intervalResponse);
+            if (intervalResponse) { //Only happens when user leaves the page early/time is up
+                clearInterval(intervalResponse); //clears the interval
+                const data = {
+                    broadcasterId: props.broadcasterId,
+                    timeWatched: props.time
+                };
+                axios.post("http://localhost:8000/api/twitch/updateTimeWatchedForBroadcaster", data).then(res => {
+                    console.log(res);
+                }).catch(error => {
+                    console.error(error);
+                });
+            }
         }
     }, [intervalResponse]);
     //Called when timeRemaining changes, use to access timeRemaining state as it changes

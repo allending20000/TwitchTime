@@ -6,7 +6,7 @@ import React from "react";
 
 const User = () => {
     //Get the route parameters
-    let { username, timeToWatch } = useParams();
+    let { username, timeToWatch, broadcasterId } = useParams();
     //Whether or not the time is up (when watching a channel)
     const isTimeUp = useSelector((state) => state.isTimeUp.value);
 
@@ -35,7 +35,7 @@ const User = () => {
     return (<React.Fragment>
         {!isTimeUp ? <div className="user">
             <div id="twitch-embed"></div>
-            <Timer time={timeToWatch} />
+            <Timer time={timeToWatch} broadcasterId={broadcasterId} />
         </div> :
             <div className="userTimeUp">
                 Time is up! Click the Home button to return to the dashboard.

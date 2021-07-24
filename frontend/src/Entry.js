@@ -45,8 +45,8 @@ const Entry = (props) => {
     const handleSubmit = (e) => {
         //Prevent page from refreshing
         e.preventDefault();
-        //Go to 
-        history.push(`/user/${props.userName}/${timeToWatch}`);
+        //Go to user page
+        history.push(`/user/${props.userName}/${props.broadcasterId}/${timeToWatch}`);
         //Set isTimeUp state to false so navbar links are disabled
         dispatch(startTime());
         console.log(isTimeUp);

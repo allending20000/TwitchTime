@@ -20,7 +20,7 @@ function App() {
         <Route exact path="/callback">
           <Callback />
         </Route>
-        <Route exact path="/user/:username/:timeToWatch">
+        <Route exact path="/user/:username/:broadcasterId/:timeToWatch">
           <Navbar />
           <User />
         </Route>
