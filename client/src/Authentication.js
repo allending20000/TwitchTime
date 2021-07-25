@@ -6,7 +6,7 @@ const Authentication = () => {
         </div>
         <div className="content">
             <div>Welcome to TwitchTime: an app that easily allows you to manage your time watching your favorite channels.</div>
-            <a href="http://localhost:8000/api/auth/signin" className="button">Sign In with Twitch</a>
+            <a href="/api/auth/signin" className="button">Sign In with Twitch</a>
         </div>
     </div>);
 }

@@ -70,7 +70,7 @@ const Timer = (props) => {
                     broadcasterId: props.broadcasterId,
                     timeWatched: props.time
                 };
-                axios.post("http://localhost:8000/api/twitch/updateTimeWatchedForBroadcaster", data).then(res => {
+                axios.post("/api/twitch/updateTimeWatchedForBroadcaster", data).then(res => {
                     console.log(res);
                 }).catch(error => {
                     console.error(error);

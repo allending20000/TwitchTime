@@ -14,7 +14,7 @@ const Dashboard = () => {
 
     //Runs the first time component mounts
     useEffect(() => {
-        axios.get("http://localhost:8000/api/twitch/getFollowedStreams").then(res => {
+        axios.get("/api/twitch/getFollowedStreams").then(res => {
             //update the data state
             //If no streams are followed, get back empty array
             const followedStreamsArr = res.data;

@@ -20,7 +20,7 @@ mongoose.connect(databaseURI, { 'useNewUrlParser': true, 'useUnifiedTopology': t
     //Only listen to requests after connecting
     //Listening on port 8000
     app.listen(port, () => {
-        console.log(`Example app listening at http://localhost:${port}`)
+        console.log(`Example app listening on PORT:${port}`)
     })
 }).catch(err => {
     console.error(err);

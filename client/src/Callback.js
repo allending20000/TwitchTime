@@ -19,7 +19,7 @@ const Callback = (props) => {
     //Fetch the authorization code and send it to the server
     useEffect(() => {
         //Send authorization code for OAuth to the server
-        axios.get("http://localhost:8000/api/auth/generate-token", { params }).then(res => {
+        axios.get("/api/auth/generate-token", { params }).then(res => {
             //redirect to dashboard after getting cookie from the server
             history.push("/dashboard");
             //set authentication value to true

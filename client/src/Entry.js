@@ -28,9 +28,9 @@ const Entry = (props) => {
                     broadcasterId: props.broadcasterId
                 }
                 //Fetch the profile image URL for each user
-                const urlResponse = await axios.get("http://localhost:8000/api/twitch/getUserProfileImage", { params: params });
+                const urlResponse = await axios.get("/api/twitch/getUserProfileImage", { params: params });
                 const url = urlResponse.data;
-                const timeResponse = await axios.get("http://localhost:8000/api/twitch/getTimeWatched", { params: params });
+                const timeResponse = await axios.get("/api/twitch/getTimeWatched", { params: params });
                 const time = timeResponse.data.toString(); //convert to string so it isn't considered falsy when rendering
                 setProfileImgUrl(url);
                 setTimeWatched(time);
