@@ -82,4 +82,4 @@ However, the Twitch API has this feature disabled according to https://discuss.d
 ## Possible Improvements
 * Adding a Logout button
 * Add channel to dashboard without using Twitch API
-* Add exact time watched whenever user goes back to Dashboard using browser back button before timer reaches 0
+* Add exact time watched whenever user goes back to dashboard using browser back button before timer reaches 0
