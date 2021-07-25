@@ -93,16 +93,16 @@ body {
   justify-content: space-evenly;
 }
 
-.navbar .content .dashboardEnabled, .aboutEnabled, .addChannelEnabled {
+.navbar .content .dashboardEnabled, .aboutEnabled {
   text-decoration: none;
   color: white;
 }
 
-.navbar .content .dashboardEnabled:hover, .aboutEnabled:hover, .addChannelEnabled:hover {
+.navbar .content .dashboardEnabled:hover, .aboutEnabled:hover {
   color: black;
 }
 
-.navbar .content .dashboardDisabled, .aboutDisabled, .addChannelDisabled {
+.navbar .content .dashboardDisabled, .aboutDisabled {
   text-decoration: none;
   color: gray;
 }
@@ -238,7 +238,7 @@ body {
   margin-top: 20px;
 }
 
-.userTimeUp {
+.userTimeUp, .noActiveChannelFollowed {
   color: white;
   font-size: 30px;
   text-align: center;
@@ -264,35 +264,20 @@ body {
   margin-right: 2px;
 }
 
-.addChannel .channelForm {
-  text-align: center;
-}
-
-.addChannel .channelForm input[type=string] {
-  height: 32px;
-  width: 250px;
-  border-radius: 10px;
-  border: 0;
-  font-size: 20px;
-  display: block;
-  text-align: center;
-  margin: 17px auto 0px auto;
-  font-family: 'Kumbh Sans', sans-serif;
-}
-
-.addChannel .channelForm button {
-  height: 45px;
-  width: 110px;
-  background-color: #6041b0;
-  border: none;
+.about .header {
   color: white;
+  font-size: 35px;
+  text-align: center;
   font-family: 'Kumbh Sans', sans-serif;
-  border-radius: 5px;
-  margin: 20px 0px;
-  font-size: 15px;
+  font-weight: bold;
+  margin-top: 30px;
 }
 
-.addChannel .channelForm button:hover {
-  background-color: #41097d;
-  cursor: pointer;
+.about .content {
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  font-family: 'Kumbh Sans', sans-serif;
+  margin: 10px 260px;
+  line-height: 2em;
 }

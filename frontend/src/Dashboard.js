@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "../../backend/node_modules/axios";
 import Entry from "./Entry.js";
-import AddChannel from "./AddChannel";
 import { useDispatch } from 'react-redux';
 import { timeIsUp } from "./redux/isTimeUpSlice";
 //enable to get and send cookies
@@ -18,6 +17,7 @@ const Dashboard = () => {
         axios.get("http://localhost:8000/api/twitch/getFollowedStreams").then(res => {
             //update the data state
             console.log(res);
+            //If no streams are followed, get back empty array
             const followedStreamsArr = res.data;
             setFollowedStreams(followedStreamsArr);
             //Set the state isTimeUp to true so navbar links display
@@ -35,7 +35,10 @@ const Dashboard = () => {
                 </div>
             })
         }
-        <AddChannel />
+        {/*Only appears when followedStreams is an empty array*/}
+        {followedStreams && followedStreams.length === 0 &&
+            <div className="noActiveChannelFollowed">No channels that you follow are live! Follow a live channel on Twitch to start using the app.</div>
+        }
     </div>);
 }
 

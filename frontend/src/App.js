@@ -3,6 +3,7 @@ import Dashboard from "./Dashboard";
 import Navbar from "./Navbar";
 import Callback from "./Callback";
 import User from "./User";
+import About from "./About";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 
@@ -23,6 +24,10 @@ function App() {
         <Route exact path="/user/:username/:broadcasterId/:timeToWatch">
           <Navbar />
           <User />
+        </Route>
+        <Route exact path="/about">
+          <Navbar />
+          <About />
         </Route>
       </Switch>
     </Router>
