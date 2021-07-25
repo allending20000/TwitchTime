@@ -1,0 +1,283 @@
+html {
+  height: 100%;
+}
+
+body {
+  background-color: #D28CFF;
+  height: 100%;
+}
+
+.authentication .title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+.authentication .title img {
+  width: 145px;
+  height: 115px;
+  display: inline-block;
+}
+
+.authentication .title span {
+  font-family: 'Pragati Narrow', sans-serif;
+  font-size: 150px;
+  padding: 30px;
+  color: #6041b0;
+}
+
+.authentication .content {
+  width: 380px;
+  height: 480px;
+  background: white;
+  border-radius: 40px;
+  margin: 0px auto 30px auto;
+  text-align: center;
+  font-family: 'Kumbh Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  box-shadow: 0 3px 15px black;
+}
+
+.authentication .content div {
+  padding: 20px;
+  line-height: 40px;
+  font-size: 20px;
+}
+
+.authentication .content .button {
+  text-decoration: none;
+  width: 170px;
+  height: 36px;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  background-color: #6041b0;
+  font-family: 'Kumbh Sans', sans-serif;
+  padding-top: 20px;
+}
+
+.authentication .content .button:hover {
+  background-color: #41097d;
+}
+
+.navbar {
+  height: 70px;
+  background-color: #AB15F0;
+  border-radius: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar .title {
+  font-family: 'Pragati Narrow', sans-serif;
+  color: white;
+  padding: 5px 60px;
+  font-size: 2.2em;
+}
+
+.navbar .content {
+  font-family: 'Kumbh Sans', sans-serif;
+  display: flex;
+  justify-content: space-evenly;
+  width: 500px;
+  padding: 25px 50px;
+  font-size: 1.3em;
+}
+
+.navbar .content .div {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.navbar .content .dashboardEnabled, .aboutEnabled {
+  text-decoration: none;
+  color: white;
+}
+
+.navbar .content .dashboardEnabled:hover, .aboutEnabled:hover {
+  color: black;
+}
+
+.navbar .content .dashboardDisabled, .aboutDisabled {
+  text-decoration: none;
+  color: gray;
+}
+
+.callback .title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+.callback .title img {
+  width: 145px;
+  height: 115px;
+  display: inline-block;
+}
+
+.callback .title span {
+  font-family: 'Pragati Narrow', sans-serif;
+  font-size: 150px;
+  padding: 30px;
+  color: #6041b0;
+}
+
+.callback .content {
+  width: 380px;
+  height: 480px;
+  background: white;
+  border-radius: 40px;
+  margin: 0px auto 30px auto;
+  text-align: center;
+  font-family: 'Kumbh Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  box-shadow: 0 3px 15px black;
+}
+
+.callback .content div {
+  padding: 20px;
+  line-height: 40px;
+  font-size: 20px;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard .entry {
+  margin: 1.7em 20%;
+  padding: 2em;
+  border-style: solid;
+  border-color: #41097d;
+  border-radius: 20px;
+  background-color: plum;
+}
+
+.entry .entrycontent {
+  display: flex;
+}
+
+.entry .entrycontent .entrytext {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  font-family: 'Kumbh Sans', sans-serif;
+  justify-content: space-between;
+}
+
+.entry .entrycontent .entrytext .toprow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.8em;
+}
+
+.entry .entrycontent .entrytext .toprow .viewercount {
+  color: red;
+  font-size: 26px;
+}
+
+.entry .entrycontent .entrytext .bottomrow {
+  padding-bottom: 30px;
+  font-size: 20px;
+}
+
+.entry .entrycontent .entrytext .bottomrow .gameName {
+  font-size: 15px;
+  margin-bottom: 50px;
+  color: #404247;
+}
+
+.entry .entrycontent .entrytext .bottomrow .timeWatched {
+  margin-bottom: 10px;
+}
+
+.entry .entrycontent .entrytext .bottomrow .timeform input[type=number] {
+  padding: 7px;
+  border-radius: 10px;
+  font-family: 'Kumbh Sans', sans-serif;
+  width: 21%;
+  border: 0;
+  margin-right: 5px;
+}
+
+.entry .entrycontent .entrytext .bottomrow .timeform button {
+  height: 27px;
+  width: 60px;
+  background-color: #6041b0;
+  border: none;
+  color: white;
+  font-family: 'Kumbh Sans', sans-serif;
+  border-radius: 5px;
+}
+
+.entry .entrycontent .entrytext .bottomrow .timeform button:hover {
+  background-color: #41097d;
+  cursor: pointer;
+}
+
+.entry img {
+  height: 150px;
+  width: 150px;
+  border-color: #41097d;
+  border-style: solid;
+  background: white;
+  margin-right: 20px;
+}
+
+.user #twitch-embed {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.userTimeUp, .noActiveChannelFollowed, .notFound {
+  color: white;
+  font-size: 30px;
+  text-align: center;
+  font-family: 'Kumbh Sans', sans-serif;
+  font-weight: bold;
+  margin-top: 40px;
+}
+
+.timer {
+  display: flex;
+  justify-content: center;
+}
+
+.timer .timerNumbers {
+  color: white;
+  font-size: 40px;
+  font-family: sans-serif;
+  font-weight: bold;
+  margin: 15px;
+}
+
+.timer .timerNumbers .separator {
+  margin-right: 2px;
+}
+
+.about .header {
+  color: white;
+  font-size: 35px;
+  text-align: center;
+  font-family: 'Kumbh Sans', sans-serif;
+  font-weight: bold;
+  margin-top: 30px;
+}
+
+.about .content {
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  font-family: 'Kumbh Sans', sans-serif;
+  margin: 10px 260px;
+  line-height: 2em;
+}
