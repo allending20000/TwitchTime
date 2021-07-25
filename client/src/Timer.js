@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { useEffect } from "react";
 import { timeIsUp } from "./redux/isTimeUpSlice";
-import axios from "../../server/node_modules/axios";
+import axios from "axios";
 //enable to get and send cookies
 axios.defaults.withCredentials = true;
 

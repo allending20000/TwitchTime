@@ -1,6 +1,6 @@
 import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
-import axios from "../../server/node_modules/axios";
+import axios from "axios";
 import { FaMale } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { startTime } from './redux/isTimeUpSlice';

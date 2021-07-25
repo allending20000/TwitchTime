@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "../../server/node_modules/axios";
+import axios from "axios";
 import Entry from "./Entry.js";
 import { useDispatch } from 'react-redux';
 import { timeIsUp } from "./redux/isTimeUpSlice";

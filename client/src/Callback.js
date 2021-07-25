@@ -1,5 +1,5 @@
 import { useHistory, useLocation } from 'react-router-dom';
-import axios from '../../server/node_modules/axios';
+import axios from 'axios';
 import { useEffect } from 'react';
 const queryString = require('query-string');
 //enable to get and send cookies
