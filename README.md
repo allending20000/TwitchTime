@@ -47,7 +47,7 @@ It can be difficult to manage time spent on Twitch because unlike other sources 
 
 1. Clone the repository.
 ```
-git clone https://github.com/allending20000/twitch-proj.git
+git clone https://github.com/allending20000/TwitchTime.git
 ```
 2. Add .env file at root level.
 3. Register new application in Twitch developer console (https://dev.twitch.tv/console/apps).
@@ -65,7 +65,7 @@ MONGODB_CONNECTION_STRING=''
 5. Add "http://localhost:8000" in front of server API calls in Authentication.js, Callback.js, Dashboard.js, Entry.js, and Timer.js in client folder.
 6. Run the following commands in Terminal.
 ```
-cd twitch-proj
+cd TwitchTime
 (Install packages for server)
 npm install
 cd client
