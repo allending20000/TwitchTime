@@ -3,6 +3,23 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from "react";
 import { timeIsUp } from "./redux/isTimeUpSlice";
 import axios from "axios";
+
+/*
+This is a React Component from a personal project I did called TwitchTime. 
+The application is designed to help users of the livestreaming platform Twitch 
+manage their time on the site. Users must choose a duration of time that they 
+want to watch a particular channel for and after that time is up, the user is 
+automatically exited out.
+
+A more detailed description of the project as well as the rest of the code can 
+be found at https://github.com/allending20000/TwitchTime.
+
+The following sample is a React Component of a timer that counts down from a 
+set duration of time. When the timer reaches 0, it makes a call to a custom 
+API endpoint I created that will update the MongoDB database with the time 
+that was originally set.
+*/
+
 //enable to get and send cookies
 axios.defaults.withCredentials = true;
 
