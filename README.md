@@ -11,13 +11,16 @@
 
 ## Overview
 TwitchTime is a web application designed to help users manage their time watching their favorite Twitch channels. 
-It can be accessed at https://twitchtime-app.herokuapp.com/.
+It can be accessed at https://twitchtime-48fece8d735e.herokuapp.com/. To start, simply make sure you are already following
+certain channels on the official Twitch page.
 
 ## Contributors
 Allen Ding (https://github.com/allending20000)
 
 ## Motivation
-It can be difficult to manage time spent on Twitch because unlike other sources of entertainment like Youtube or MOBAs, there is no set time limit.
+I personally found it particularly difficult to manage my time on the popular live-streaming platform Twitch. Unlike other sources of entertainment
+like YouTube, where each video has a set duration of time, Twitch streams can go on for hours on end. By creating an easy-to-use application that
+automatically manages time spent on the site, I hope to address an underlying issue that I and many other Twitch users have.
 
 ## Features
 * Allow users to securely sign in with their Twitch accounts using OAuth authorization code flow
@@ -82,7 +85,7 @@ npm start
 7. The application should be accessed on http://localhost:3000.
 
 ### Production Environment
-* The application should be accessed on https://twitchtime-app.herokuapp.com/.
+* The application should be accessed on https://twitchtime-48fece8d735e.herokuapp.com/.
 
 ## Issues
 * The application was originally planned to include a feature for following a Twitch channel, which would add them to the dashboard. 
