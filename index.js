@@ -14,7 +14,7 @@ const port = process.env.PORT || 8000;
 //Connect to mongoDB
 const databaseURI = process.env.MONGODB_CONNECTION_STRING;
 //Avoid deprecation warnings
-mongoose.set('useCreateIndex', true);
+mongoose.set();
 mongoose.connect(databaseURI, { 'useNewUrlParser': true, 'useUnifiedTopology': true }).then(result => {
     console.log("Database is connected!!!");
     //Only listen to requests after connecting
